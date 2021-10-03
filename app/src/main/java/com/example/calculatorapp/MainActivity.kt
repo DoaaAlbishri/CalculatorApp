@@ -1,5 +1,6 @@
 package com.example.calculatorapp
 
+import android.content.res.Configuration
 import android.content.res.TypedArray
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -107,7 +108,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 textView.text = (textView.text.toString().toInt() * -1).toString()
             }
-
         }
         badd.setOnClickListener {
             op = "+"
@@ -147,7 +147,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    //rotate device
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("textview", textView.text.toString())
+        outState.putString("op", op)
+    }
+    //rotate device
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        textView.text= savedInstanceState.getString("textview")
+        op = savedInstanceState.getString("op").toString()
     }
 
     fun sub (num1 : Double , num2 : Double) : String {
